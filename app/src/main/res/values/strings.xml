@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">Food-ilicious</string>
+    <string name="present_food">You should eat :</string>
+    <string name="default_food">Food</string>
+    <string name="reroll">Reroll</string>
+    <string name="more_info">More info</string>
+    <string name="edit_list">Change List</string>
+    <string name="food_img_description">Image of the chosen food</string>
+    <string name="save">Save Changes</string>
+    <string name="enter_food">Enter the food name :</string>
+    <string name="new_food_hint">pad thai, schnitzel, etc.</string>
+    <string name="add">Add</string>
+    <string name="remove">Remove</string>
+    <string-array name="starting_food_names">
+        <item>Sushi</item>
+        <item>Pizza</item>
+        <item>Burger</item>
+        <item>Salad</item>
+        <item>Poutine</item>
+    </string-array>
+</resources>
