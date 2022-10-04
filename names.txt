@@ -1,2 +1,1 @@
-<student_number_1> <full_name_1>
-<student_number_2> <full_name_2>
+<student_number> <full_name>
