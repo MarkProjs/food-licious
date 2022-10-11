@@ -39,4 +39,5 @@ class FoodListActivity : AppCompatActivity() {
     private fun updateFoodList(newFoodList: MutableList<String> = this.foodList) {
         binding.foodListTxt.text = newFoodList.joinToString(separator = "\n")
     }
+
 }
