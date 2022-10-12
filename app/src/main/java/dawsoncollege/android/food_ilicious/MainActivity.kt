@@ -24,8 +24,13 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val LOG_TAG = "MAIN_ACTIVITY_DEV_LOG"
         private const val RN_CHOOSER_REQUEST_CODE = 0
-        const val MAXIMUM_NUMBER_BUNDLE_KEY = "MAXIMUM_NUMBER_KEY"
     }
+    private lateinit var reRollBtn: Button
+    private lateinit var moreInfoBtn: Button
+    private lateinit var changeListBtn: Button
+    private lateinit var foodImg: ImageView
+    private lateinit var foodTxt: TextView
+    private lateinit var foodList: Array<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -33,12 +38,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         //fields needed for the function
-        val reRollBtn:Button = binding.rerollBtn
-        val moreInfoBtn:Button = binding.moreInfoBtn
-        val changeListBtn: Button = binding.editListButton
-        val foodImg: ImageView = binding.foodImg
-        val foodTxt: TextView = binding.foodTxt
-        val foodList = resources.getStringArray(R.array.starting_food_names)
+        reRollBtn = binding.rerollBtn
+        moreInfoBtn = binding.moreInfoBtn
+        changeListBtn = binding.editListButton
+        foodImg = binding.foodImg
+        foodTxt = binding.foodTxt
+        foodList = resources.getStringArray(R.array.starting_food_names)
 
         //function to do a random food in a list upon loading and the roll button
         randFood(foodImg, foodTxt, foodList)
@@ -127,16 +132,10 @@ class MainActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 RN_CHOOSER_REQUEST_CODE -> {
-                    Log.d(LOG_TAG, "Returning from RandomNumberChooserActivity successfully")
-                    val maximumNumberStr: String? =
-                        data?.extras?.getString(MAXIMUM_NUMBER_BUNDLE_KEY)
-
-                    Toast.makeText(
-                        this,
-                        if (maximumNumberStr != null) "Maximum number was : $maximumNumberStr"
-                        else "Could not get maximum number...",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Log.d(LOG_TAG, "Returning from FoodListActivity successfully")
+                    if (data != null) {
+                        foodList = data?.getStringArrayExtra("foodList") as Array<String>
+                    }
                 }
                 else -> {
                     Log.w(LOG_TAG, "Returning from an unknown activity")

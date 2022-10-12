@@ -1,5 +1,6 @@
 package dawsoncollege.android.food_ilicious
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
@@ -38,6 +39,10 @@ class FoodListActivity : AppCompatActivity() {
             if (foodList.remove(foodNameToRemove)) {
                 updateFoodList()
             }
+        }
+
+        binding.saveBtn.setOnClickListener {
+        setResult(Activity.RESULT_OK, intent.putExtra("foodList", foodList.toTypedArray()))
         }
     }
 
