@@ -9,6 +9,9 @@ import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
@@ -21,50 +24,54 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val LOG_TAG = "MAIN_ACTIVITY_DEV_LOG"
         private const val RN_CHOOSER_REQUEST_CODE = 0
-        const val MAXIMUM_NUMBER_BUNDLE_KEY = "MAXIMUM_NUMBER_KEY"
     }
-
+    private lateinit var reRollBtn: Button
+    private lateinit var moreInfoBtn: Button
+    private lateinit var changeListBtn: Button
+    private lateinit var foodImg: ImageView
+    private lateinit var foodTxt: TextView
+    private lateinit var foodList: Array<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        //fields needed for the function
+        reRollBtn = binding.rerollBtn
+        moreInfoBtn = binding.moreInfoBtn
+        changeListBtn = binding.editListButton
+        foodImg = binding.foodImg
+        foodTxt = binding.foodTxt
+        foodList = resources.getStringArray(R.array.starting_food_names)
+
         //function to do a random food in a list upon loading and the roll button
-        randFood()
-        reRollBtn()
+        randFood(foodImg, foodTxt, foodList)
+
+        //roll button
+        reRollBtn.setOnClickListener{
+            randFood(foodImg, foodTxt, foodList)
+        }
 
         //map nearby for foo text
-        val foodImg = binding.foodImg
         foodImg.setOnClickListener {
-            mapSearch()
+            mapSearch(foodTxt)
         }
 
         //more info button
-        val moreInfoBtn = binding.moreInfoBtn
         moreInfoBtn.setOnClickListener {
-            webSearch()
+            webSearch(foodTxt)
         }
 
         //change list button
-        val changeListBtn = binding.editListButton
         changeListBtn.setOnClickListener {
-            switchActivity()
+            switchActivity(foodList)
         }
     }
 
-
-    private fun reRollBtn() {
-        val reRollBtn = binding.rerollBtn
-        reRollBtn.setOnClickListener{
-            randFood()
-        }
-    }
-    private fun randFood() {
+    private fun randFood(foodImg: ImageView, foodTxt: TextView, foodList: Array<String>) {
         //getting the random values
-        val foodArr = resources.getStringArray(R.array.starting_food_names)
-        val foodName = foodArr.random()
-        val foodTxt = binding.foodTxt
-        val foodImg = binding.foodImg
+        val foodName = foodList.random()
 
         //setting the random value to be set in screen
         //setting the value text
@@ -83,23 +90,32 @@ class MainActivity : AppCompatActivity() {
         foodImg.setImageResource(imgResource)
     }
 
-    private fun mapSearch() {
-        val foodTxt = binding.foodTxt.text
-        val intentUri = Uri.parse("geo: 0, 0?q=${foodTxt}")
-        val mapIntent = Intent(Intent.ACTION_VIEW, intentUri)
-        mapIntent.setPackage("com.google.android.apps.maps")
-        startActivity(mapIntent)
+    private fun mapSearch(foodTxt: TextView) {
+        try {
+            val intentUri = Uri.parse("geo: 0, 0?q=${foodTxt.text}")
+            val mapIntent = Intent(Intent.ACTION_VIEW, intentUri)
+            mapIntent.setPackage("com.google.android.apps.maps")
+            startActivity(mapIntent)
+        }catch (exc: ActivityNotFoundException) {
+            Log.e(LOG_TAG,"Could not open google maps", exc)
+        }
+
     }
-    private fun webSearch() {
-        val foodTxt = binding.foodTxt.text
-        val searchPrefix = "https://www.google.com/search?q="
-        val queryUrl: Uri = Uri.parse("${searchPrefix}${foodTxt}")
-        val intent = Intent(Intent.ACTION_VIEW, queryUrl)
-        startActivity(intent)
+    private fun webSearch(foodTxt: TextView) {
+        try {
+            val searchPrefix = "https://www.google.com/search?q="
+            val queryUrl: Uri = Uri.parse("${searchPrefix}${foodTxt.text}")
+            val intent = Intent(Intent.ACTION_VIEW, queryUrl)
+            startActivity(intent)
+        }catch (exc: ActivityNotFoundException) {
+            Log.e(LOG_TAG, "Could not open the website", exc)
+        }
+
     }
 
-    private fun switchActivity() {
+    private fun switchActivity(foodList: Array<String>) {
         val intent = Intent(this, FoodListActivity::class.java)
+        intent.putExtra("foodList", foodList)
 
         try {
             // firing the explicit intent
@@ -116,16 +132,10 @@ class MainActivity : AppCompatActivity() {
         if (resultCode == Activity.RESULT_OK) {
             when (requestCode) {
                 RN_CHOOSER_REQUEST_CODE -> {
-                    Log.d(LOG_TAG, "Returning from RandomNumberChooserActivity successfully")
-                    val maximumNumberStr: String? =
-                        data?.extras?.getString(MAXIMUM_NUMBER_BUNDLE_KEY)
-
-                    Toast.makeText(
-                        this,
-                        if (maximumNumberStr != null) "Maximum number was : $maximumNumberStr"
-                        else "Could not get maximum number...",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Log.d(LOG_TAG, "Returning from FoodListActivity successfully")
+                    if (data != null) {
+                        foodList = data?.getStringArrayExtra("foodList") as Array<String>
+                    }
                 }
                 else -> {
                     Log.w(LOG_TAG, "Returning from an unknown activity")

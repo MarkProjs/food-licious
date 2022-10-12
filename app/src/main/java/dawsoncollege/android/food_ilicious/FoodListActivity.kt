@@ -1,5 +1,7 @@
 package dawsoncollege.android.food_ilicious
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import dawsoncollege.android.food_ilicious.databinding.ActivityFoodListBinding
@@ -15,7 +17,11 @@ class FoodListActivity : AppCompatActivity() {
         binding = ActivityFoodListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        foodList = resources.getStringArray(R.array.starting_food_names).toMutableList()
+        //variable to for the list needed
+        val stringReceived = intent.getStringArrayExtra("foodList")
+        if (stringReceived != null) {
+            foodList = stringReceived.toMutableList()
+        }
         updateFoodList()
 
         binding.addBtn.setOnClickListener {
@@ -33,6 +39,10 @@ class FoodListActivity : AppCompatActivity() {
             if (foodList.remove(foodNameToRemove)) {
                 updateFoodList()
             }
+        }
+
+        binding.saveBtn.setOnClickListener {
+        setResult(Activity.RESULT_OK, intent.putExtra("foodList", foodList.toTypedArray()))
         }
     }
 
