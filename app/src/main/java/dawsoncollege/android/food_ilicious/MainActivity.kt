@@ -1,11 +1,15 @@
 package dawsoncollege.android.food_ilicious
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.app.SearchManager
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
+import android.util.Log
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.res.ResourcesCompat
 import dawsoncollege.android.food_ilicious.databinding.ActivityMainBinding
@@ -17,6 +21,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         private const val LOG_TAG = "MAIN_ACTIVITY_DEV_LOG"
         private const val RN_CHOOSER_REQUEST_CODE = 0
+        const val MAXIMUM_NUMBER_BUNDLE_KEY = "MAXIMUM_NUMBER_KEY"
     }
 
 
@@ -38,6 +43,12 @@ class MainActivity : AppCompatActivity() {
         val moreInfoBtn = binding.moreInfoBtn
         moreInfoBtn.setOnClickListener {
             webSearch()
+        }
+
+        //change list button
+        val changeListBtn = binding.editListButton
+        changeListBtn.setOnClickListener {
+            switchActivity()
         }
     }
 
@@ -86,4 +97,43 @@ class MainActivity : AppCompatActivity() {
         val intent = Intent(Intent.ACTION_VIEW, queryUrl)
         startActivity(intent)
     }
+
+    private fun switchActivity() {
+        val intent = Intent(this, FoodListActivity::class.java)
+
+        try {
+            // firing the explicit intent
+            startActivityForResult(intent, RN_CHOOSER_REQUEST_CODE)
+
+        } catch (exc: ActivityNotFoundException) {
+            Log.e(LOG_TAG, "Could not open RandomNumberChooserActivity", exc)
+        }
+
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK) {
+            when (requestCode) {
+                RN_CHOOSER_REQUEST_CODE -> {
+                    Log.d(LOG_TAG, "Returning from RandomNumberChooserActivity successfully")
+                    val maximumNumberStr: String? =
+                        data?.extras?.getString(MAXIMUM_NUMBER_BUNDLE_KEY)
+
+                    Toast.makeText(
+                        this,
+                        if (maximumNumberStr != null) "Maximum number was : $maximumNumberStr"
+                        else "Could not get maximum number...",
+                        Toast.LENGTH_LONG
+                    ).show()
+                }
+                else -> {
+                    Log.w(LOG_TAG, "Returning from an unknown activity")
+                }
+            }
+        } else {
+            Log.w(LOG_TAG, "Activity result was not 'Activity.RESULT_OK' (-1), was '$resultCode'")
+        }
+    }
+
 }
