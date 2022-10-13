@@ -124,7 +124,6 @@ class MainActivity : AppCompatActivity() {
         } catch (exc: ActivityNotFoundException) {
             Log.e(LOG_TAG, "Could not open RandomNumberChooserActivity", exc)
         }
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -134,7 +133,7 @@ class MainActivity : AppCompatActivity() {
                 RN_CHOOSER_REQUEST_CODE -> {
                     Log.d(LOG_TAG, "Returning from FoodListActivity successfully")
                     if (data != null) {
-                        foodList = data?.getStringArrayExtra("foodList") as Array<String>
+                        foodList = data.getStringArrayExtra("foodList") as Array<String>
                     }
                 }
                 else -> {
