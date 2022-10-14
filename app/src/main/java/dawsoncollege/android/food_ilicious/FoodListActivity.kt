@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import dawsoncollege.android.food_ilicious.databinding.ActivityFoodListBinding
 
 class FoodListActivity : AppCompatActivity() {
@@ -34,19 +35,23 @@ class FoodListActivity : AppCompatActivity() {
             }
         }
 
-        binding.removeBtn.setOnClickListener {
-            val foodNameToRemove = binding.newFoodEditTxt.text.toString()
-
-            if (foodList.remove(foodNameToRemove)) {
-                updateFoodList()
-            }
-        }
+//        binding.removeBtn.setOnClickListener {
+//            val foodNameToRemove = binding.newFoodEditTxt.text.toString()
+//
+//            if (foodList.remove(foodNameToRemove)) {
+//                updateFoodList()
+//            }
+//        }
 
         binding.saveBtn.setOnClickListener {
             setResult(Activity.RESULT_OK, intent.putExtra("foodList", foodList.toTypedArray()))
             Toast.makeText(this, "New list is saved", Toast.LENGTH_LONG).show()
 
         }
+
+        val adapter = RecyclerViewAdapter(foodList)
+        binding.myRecyclerView.adapter = adapter
+        binding.myRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
     private fun updateFoodList(newFoodList: MutableList<String> = this.foodList) {
