@@ -24,14 +24,14 @@ class FoodListActivity : AppCompatActivity() {
         if (stringReceived != null) {
             foodList = stringReceived.toMutableList()
         }
-        updateFoodList()
+//        updateFoodList()
 
         binding.addBtn.setOnClickListener {
             val newFoodName = binding.newFoodEditTxt.text.toString()
 
             if (newFoodName.isNotBlank()) {
                 foodList.add(newFoodName)
-                updateFoodList()
+//                updateFoodList()
             }
         }
 
@@ -54,8 +54,8 @@ class FoodListActivity : AppCompatActivity() {
         binding.myRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
-    private fun updateFoodList(newFoodList: MutableList<String> = this.foodList) {
-        binding.foodListTxt.text = newFoodList.joinToString(separator = "\n")
-    }
+//    private fun updateFoodList(newFoodList: MutableList<String> = this.foodList) {
+//        binding.foodListTxt.text = newFoodList.joinToString(separator = "\n")
+//    }
 
 }
