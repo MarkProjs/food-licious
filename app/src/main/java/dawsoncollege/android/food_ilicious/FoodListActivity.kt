@@ -3,6 +3,7 @@ package dawsoncollege.android.food_ilicious
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import dawsoncollege.android.food_ilicious.databinding.ActivityFoodListBinding
 
@@ -42,7 +43,9 @@ class FoodListActivity : AppCompatActivity() {
         }
 
         binding.saveBtn.setOnClickListener {
-        setResult(Activity.RESULT_OK, intent.putExtra("foodList", foodList.toTypedArray()))
+            setResult(Activity.RESULT_OK, intent.putExtra("foodList", foodList.toTypedArray()))
+            Toast.makeText(this, "New list is saved", Toast.LENGTH_LONG).show()
+
         }
     }
 
