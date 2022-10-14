@@ -18,11 +18,12 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/remove_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
+        android:background="@color/teal_200"
         android:padding="15dp"
         android:text="Remove"
         app:layout_constraintBaseline_toBaselineOf="@id/food_name_txt"
