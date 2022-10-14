@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    android:padding="30dp">
+    android:padding="10dp">
 
     <TextView
         android:id="@+id/food_name_txt"
@@ -18,14 +17,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.appcompat.widget.AppCompatButton
+    <Button
         android:id="@+id/remove_btn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="128dp"
-        android:background="@color/teal_200"
-        android:padding="15dp"
-        android:text="Remove"
+        android:backgroundTint="#171717"
+        android:text="@string/remove"
+        android:textColor="@color/white"
         app:layout_constraintBaseline_toBaselineOf="@id/food_name_txt"
         app:layout_constraintStart_toEndOf="@id/food_name_txt" />
 
