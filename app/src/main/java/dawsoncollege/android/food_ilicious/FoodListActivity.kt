@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import dawsoncollege.android.food_ilicious.databinding.ActivityFoodListBinding
 
 class FoodListActivity : AppCompatActivity() {
@@ -23,24 +24,26 @@ class FoodListActivity : AppCompatActivity() {
         if (stringReceived != null) {
             foodList = stringReceived.toMutableList()
         }
-        updateFoodList()
+        val adapter = RecyclerViewAdapter(foodList)
+        binding.myRecyclerView.adapter = adapter
+        binding.myRecyclerView.layoutManager = LinearLayoutManager(this)
 
         binding.addBtn.setOnClickListener {
             val newFoodName = binding.newFoodEditTxt.text.toString()
 
             if (newFoodName.isNotBlank()) {
                 foodList.add(newFoodName)
-                updateFoodList()
             }
+            adapter.notifyDataSetChanged()
         }
 
-        binding.removeBtn.setOnClickListener {
-            val foodNameToRemove = binding.newFoodEditTxt.text.toString()
-
-            if (foodList.remove(foodNameToRemove)) {
-                updateFoodList()
-            }
-        }
+//        binding.removeBtn.setOnClickListener {
+//            val foodNameToRemove = binding.newFoodEditTxt.text.toString()
+//
+//            if (foodList.remove(foodNameToRemove)) {
+//                updateFoodList()
+//            }
+//        }
 
         binding.saveBtn.setOnClickListener {
             setResult(Activity.RESULT_OK, intent.putExtra("foodList", foodList.toTypedArray()))
@@ -49,8 +52,8 @@ class FoodListActivity : AppCompatActivity() {
         }
     }
 
-    private fun updateFoodList(newFoodList: MutableList<String> = this.foodList) {
-        binding.foodListTxt.text = newFoodList.joinToString(separator = "\n")
-    }
+//    private fun updateFoodList(newFoodList: MutableList<String> = this.foodList) {
+//        binding.foodListTxt.text = newFoodList.joinToString(separator = "\n")
+//    }
 
 }
