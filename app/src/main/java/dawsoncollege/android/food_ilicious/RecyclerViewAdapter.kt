@@ -2,6 +2,7 @@ package dawsoncollege.android.food_ilicious
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import dawsoncollege.android.food_ilicious.databinding.FoodListViewBinding
 
@@ -19,7 +20,16 @@ class RecyclerViewAdapter(private val foodList: MutableList<String>) : RecyclerV
         val food = foodList[position]
 
         binding.foodNameTxt.text = food
-    }
+        binding.removeBtn.setOnClickListener {
+            if (foodList.size > 1) {
+                foodList.removeAt(position)
+                notifyDataSetChanged()
+            }
+            else {
+                Toast.makeText(holder.binding.removeBtn.context, "You cannot delete the last food", Toast.LENGTH_LONG).show()
+            }
 
+        }
+    }
     override fun getItemCount(): Int = foodList.size
 }

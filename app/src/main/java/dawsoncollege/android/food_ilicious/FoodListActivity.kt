@@ -24,15 +24,17 @@ class FoodListActivity : AppCompatActivity() {
         if (stringReceived != null) {
             foodList = stringReceived.toMutableList()
         }
-//        updateFoodList()
+        val adapter = RecyclerViewAdapter(foodList)
+        binding.myRecyclerView.adapter = adapter
+        binding.myRecyclerView.layoutManager = LinearLayoutManager(this)
 
         binding.addBtn.setOnClickListener {
             val newFoodName = binding.newFoodEditTxt.text.toString()
 
             if (newFoodName.isNotBlank()) {
                 foodList.add(newFoodName)
-//                updateFoodList()
             }
+            adapter.notifyDataSetChanged()
         }
 
 //        binding.removeBtn.setOnClickListener {
@@ -48,10 +50,6 @@ class FoodListActivity : AppCompatActivity() {
             Toast.makeText(this, "New list is saved", Toast.LENGTH_LONG).show()
 
         }
-
-        val adapter = RecyclerViewAdapter(foodList)
-        binding.myRecyclerView.adapter = adapter
-        binding.myRecyclerView.layoutManager = LinearLayoutManager(this)
     }
 
 //    private fun updateFoodList(newFoodList: MutableList<String> = this.foodList) {
