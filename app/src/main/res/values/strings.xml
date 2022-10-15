@@ -7,7 +7,7 @@
     <string name="edit_list">Change List</string>
     <string name="food_img_description">Image of the chosen food</string>
     <string name="save">Save Changes</string>
-    <string name="enter_food">Enter the food name :</string>
+    <string name="enter_food">Enter the food name </string>
     <string name="new_food_hint">pad thai, schnitzel, etc.</string>
     <string name="add">Add</string>
     <string name="remove">Remove</string>
