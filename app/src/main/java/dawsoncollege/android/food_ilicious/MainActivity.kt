@@ -1,20 +1,15 @@
 package dawsoncollege.android.food_ilicious
 
-import android.annotation.SuppressLint
 import android.app.Activity
-import android.app.SearchManager
 import android.content.ActivityNotFoundException
 import android.content.Intent
-import android.content.res.Resources
 import android.net.Uri
 import android.os.Bundle
 import android.util.Log
 import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.res.ResourcesCompat
 import dawsoncollege.android.food_ilicious.databinding.ActivityMainBinding
 
 class MainActivity : AppCompatActivity() {
