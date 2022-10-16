@@ -22,6 +22,7 @@
         android:id="@+id/food_img"
         android:layout_width="300dp"
         android:layout_height="300dp"
+        android:background="@color/white"
         android:contentDescription="@string/food_img_description"
         android:src="@drawable/default_food"
         app:layout_constraintBottom_toTopOf="@id/food_txt"
