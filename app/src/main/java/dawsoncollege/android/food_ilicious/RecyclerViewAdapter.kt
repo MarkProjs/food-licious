@@ -23,7 +23,7 @@ class RecyclerViewAdapter(private val foodList: MutableList<String>) : RecyclerV
         binding.removeBtn.setOnClickListener {
             if (foodList.size == 1) {
                 Toast.makeText(holder.binding.removeBtn.context,
-                    "You cannot delete the last food in the list", Toast.LENGTH_LONG).show()
+                    "Error! Last food in the list", Toast.LENGTH_LONG).show()
             }
             else {
                 foodList.removeAt(position)

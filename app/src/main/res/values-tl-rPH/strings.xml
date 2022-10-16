@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Masarap na pagkain</string>
+    <string name="present_food">Dapat kumain ka ng :</string>
+    <string name="default_food">Pagkain</string>
+    <string name="reroll">I-reroll</string>
+    <string name="more_info">Karagdagang impormasyon</string>
+    <string name="edit_list">Baguhin ang listahan</string>
+    <string name="food_img_description">Larawan ng napiling pagkain</string>
+    <string name="save">I-save ang mga pagbabago</string>
+    <string name="enter_food">Ilagay ang pangalan ng pagkain </string>
+    <string name="new_food_hint">pad thai, schnitzel, atbp.</string>
+    <string name="add">Idagdag</string>
+    <string name="remove">Alisin</string>
+    <string-array name="starting_food_names">
+        <item>Sushi</item>
+        <item>Pizza</item>
+        <item>Burger</item>
+        <item>Salad</item>
+        <item>Poutine</item>
+        <item>Spaghetti</item>
+        <item>Barbeque</item>
+    </string-array>
+</resources>
