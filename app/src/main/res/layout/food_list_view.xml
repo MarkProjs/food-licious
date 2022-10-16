@@ -22,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="130dp"
         android:layout_marginTop="12dp"
-        android:backgroundTint="#171717"
+        android:backgroundTint="#3C3131"
         android:text="@string/remove"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
