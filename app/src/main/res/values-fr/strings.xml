@@ -1,4 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="app_name">Nourriture-iliceux</string>
+    <string name="present_food">Vous devrez manger :</string>
+    <string name="default_food">Aliments</string>
+    <string name="reroll">Relancer</string>
+    <string name="more_info">Plus d\'informations</string>
+    <string name="edit_list">Modifier la Liste</string>
+    <string name="food_img_description">Image de l\'aliment choisi</string>
+    <string name="save">Sauvegarder les modifications</string>
+    <string name="enter_food">Entrer le nom du nourriture</string>
+    <string name="new_food_hint">pad thaï, schnitzel, etc.</string>
+    <string name="add">Ajouter</string>
+    <string name="remove">Retirer</string>
+    <string-array name="starting_food_names">
+        <item>Sushi</item>
+        <item>Pizza</item>
+        <item>Burger</item>
+        <item>Salade</item>
+        <item>Poutine</item>
+        <item>Spaghetti</item>
+        <item>Barbecue</item>
+    </string-array>
 </resources>

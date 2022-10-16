@@ -117,7 +117,7 @@ class MainActivity : AppCompatActivity() {
             startActivityForResult(intent, RN_CHOOSER_REQUEST_CODE)
 
         } catch (exc: ActivityNotFoundException) {
-            Log.e(LOG_TAG, "Could not open RandomNumberChooserActivity", exc)
+            Log.e(LOG_TAG, "Could not open FoodListActivity", exc)
         }
     }
 
