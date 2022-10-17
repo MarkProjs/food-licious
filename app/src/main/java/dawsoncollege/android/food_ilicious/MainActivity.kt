@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import dawsoncollege.android.food_ilicious.databinding.ActivityMainBinding
+import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
 
@@ -40,6 +41,7 @@ class MainActivity : AppCompatActivity() {
         foodTxt = binding.foodTxt
         foodList = resources.getStringArray(R.array.starting_food_names)
 
+        //function to save image into save state
         //function to do a random food in a list upon loading and the roll button
         randFood(foodImg, foodTxt, foodList)
 
@@ -68,21 +70,18 @@ class MainActivity : AppCompatActivity() {
         //getting the random values
         val foodName = foodList.random()
 
-        //setting the random value to be set in screen
-        //setting the value text
-        foodTxt.text = foodName
-        //setting the value image
-        var imageToPut = ""
-        val uri = "@drawable/${foodName.lowercase()}"
-        val imageResource = resources.getIdentifier(uri, "drawable", packageName)
-        foodImg.setImageResource(imageResource)
-        imageToPut = if (foodImg.drawable == null) {
-            "@drawable/default_food"
-        } else {
-            "@drawable/${foodName.lowercase()}"
+        getImage(foodTxt, foodImg, foodName)
+    }
+
+    private fun getImage(foodTxt: TextView, foodImg: ImageView, foodName: String) {
+        val imageResource = resources.getIdentifier("@drawable/${foodName.lowercase()}", "drawable", packageName)
+        if (imageResource == 0) {
+            foodImg.setImageResource(R.drawable.default_food)
         }
-        val imgResource = resources.getIdentifier(imageToPut, "drawable", packageName)
-        foodImg.setImageResource(imgResource)
+        else {
+            foodImg.setImageResource(imageResource)
+            foodTxt.text = foodName
+        }
     }
 
     private fun mapSearch(foodTxt: TextView) {
@@ -140,4 +139,21 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString("foodTxt", foodTxt.text as String?)
+        super.onSaveInstanceState(outState)
+
+
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        foodTxt.text=savedInstanceState.getString("foodTxt")
+        val imageResource = resources.getIdentifier("@drawable/${(foodTxt.text as String)?.lowercase()}", "drawable", packageName)
+        foodImg.setImageResource(imageResource)
+        super.onRestoreInstanceState(savedInstanceState)
+
+
+    }
+
 }
+

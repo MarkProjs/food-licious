@@ -3,8 +3,8 @@
     <array name="preloaded_fonts" translatable="false">
         <item>@font/copse</item>
         <item>@font/cousine</item>
-        <item>@font/gravitas_one</item>
         <item>@font/kite_one</item>
+        <item>@font/literata_italic</item>
         <item>@font/tillana_semibold</item>
     </array>
 </resources>
