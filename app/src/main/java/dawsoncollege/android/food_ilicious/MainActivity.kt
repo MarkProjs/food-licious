@@ -140,4 +140,15 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString("foodTxt", foodTxt.text as String?)
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        foodTxt.text=savedInstanceState.getString("foodTxt")
+
+    }
+
 }
