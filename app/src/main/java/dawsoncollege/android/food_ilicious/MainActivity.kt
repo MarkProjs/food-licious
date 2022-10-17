@@ -27,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var foodImg: ImageView
     private lateinit var foodTxt: TextView
     private lateinit var foodList: Array<String>
+    private lateinit var foodName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +69,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun randFood(foodImg: ImageView, foodTxt: TextView, foodList: Array<String>) {
         //getting the random values
-        val foodName = foodList.random()
+        foodName = foodList.random()
 
         getImage(foodTxt, foodImg, foodName)
     }
@@ -140,16 +141,15 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putString("foodTxt", foodTxt.text as String?)
+        outState.putString("foodName", foodName)
         super.onSaveInstanceState(outState)
 
 
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        foodTxt.text=savedInstanceState.getString("foodTxt")
-        val imageResource = resources.getIdentifier("@drawable/${(foodTxt.text as String)?.lowercase()}", "drawable", packageName)
-        foodImg.setImageResource(imageResource)
+        foodName = savedInstanceState.getString("foodName").toString()
+        getImage(foodTxt, foodImg, foodName)
         super.onRestoreInstanceState(savedInstanceState)
 
 
