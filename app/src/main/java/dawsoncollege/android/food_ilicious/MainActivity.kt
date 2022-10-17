@@ -27,7 +27,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var foodImg: ImageView
     private lateinit var foodTxt: TextView
     private lateinit var foodList: Array<String>
-    private var imgResource: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -71,21 +70,18 @@ class MainActivity : AppCompatActivity() {
         //getting the random values
         val foodName = foodList.random()
 
-        //setting the random value to be set in screen
-        //setting the value text
-        foodTxt.text = foodName
-        //setting the value image
-        var imageToPut = ""
-        val uri = "@drawable/${foodName.lowercase()}"
-        val imageResource = resources.getIdentifier(uri, "drawable", packageName)
-        foodImg.setImageResource(imageResource)
-        imageToPut = if (foodImg.drawable == null) {
-            "@drawable/default_food"
-        } else {
-            "@drawable/${foodName.lowercase()}"
+        getImage(foodTxt, foodImg, foodName)
+    }
+
+    private fun getImage(foodTxt: TextView, foodImg: ImageView, foodName: String) {
+        val imageResource = resources.getIdentifier("@drawable/${foodName.lowercase()}", "drawable", packageName)
+        if (imageResource == 0) {
+            foodImg.setImageResource(R.drawable.default_food)
         }
-        imgResource = resources.getIdentifier(imageToPut, "drawable", packageName)
-        foodImg.setImageResource(imgResource)
+        else {
+            foodImg.setImageResource(imageResource)
+            foodTxt.text = foodName
+        }
     }
 
     private fun mapSearch(foodTxt: TextView) {
@@ -146,14 +142,14 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString("foodTxt", foodTxt.text as String?)
-        outState.putInt("foodImgInt", imgResource)
 
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         foodTxt.text=savedInstanceState.getString("foodTxt")
-        foodImg.setImageResource(savedInstanceState.getInt("foodImgInt"))
+        val imageResource = resources.getIdentifier("@drawable/${(foodTxt.text as String)?.lowercase()}", "drawable", packageName)
+        foodImg.setImageResource(imageResource)
 
     }
 
