@@ -44,4 +44,14 @@ class FoodListActivity : AppCompatActivity() {
 
         }
     }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putStringArray("foodList", foodList.toTypedArray())
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle) {
+        super.onRestoreInstanceState(savedInstanceState)
+        foodList = (savedInstanceState.getStringArray("foodList")?.toMutableList() as MutableList<String>)
+    }
 }

@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import dawsoncollege.android.food_ilicious.databinding.ActivityMainBinding
+import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
 
@@ -26,6 +27,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var foodImg: ImageView
     private lateinit var foodTxt: TextView
     private lateinit var foodList: Array<String>
+    private var imgResource: Int = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,7 @@ class MainActivity : AppCompatActivity() {
         foodTxt = binding.foodTxt
         foodList = resources.getStringArray(R.array.starting_food_names)
 
+        //function to save image into save state
         //function to do a random food in a list upon loading and the roll button
         randFood(foodImg, foodTxt, foodList)
 
@@ -81,7 +84,7 @@ class MainActivity : AppCompatActivity() {
         } else {
             "@drawable/${foodName.lowercase()}"
         }
-        val imgResource = resources.getIdentifier(imageToPut, "drawable", packageName)
+        imgResource = resources.getIdentifier(imageToPut, "drawable", packageName)
         foodImg.setImageResource(imgResource)
     }
 
@@ -143,12 +146,16 @@ class MainActivity : AppCompatActivity() {
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putString("foodTxt", foodTxt.text as String?)
+        outState.putInt("foodImgInt", imgResource)
+
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
         foodTxt.text=savedInstanceState.getString("foodTxt")
+        foodImg.setImageResource(savedInstanceState.getInt("foodImgInt"))
 
     }
 
 }
+
