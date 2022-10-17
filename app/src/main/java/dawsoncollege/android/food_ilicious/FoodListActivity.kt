@@ -52,6 +52,6 @@ class FoodListActivity : AppCompatActivity() {
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        foodList = (savedInstanceState.getStringArray("foodList")?.toMutableList() as MutableList<String>)
+        foodList = (savedInstanceState.getStringArray("foodList")?.toMutableList()!!)
     }
 }
