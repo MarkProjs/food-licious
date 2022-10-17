@@ -140,16 +140,18 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
         outState.putString("foodTxt", foodTxt.text as String?)
+        super.onSaveInstanceState(outState)
+
 
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        super.onRestoreInstanceState(savedInstanceState)
         foodTxt.text=savedInstanceState.getString("foodTxt")
         val imageResource = resources.getIdentifier("@drawable/${(foodTxt.text as String)?.lowercase()}", "drawable", packageName)
         foodImg.setImageResource(imageResource)
+        super.onRestoreInstanceState(savedInstanceState)
+
 
     }
 

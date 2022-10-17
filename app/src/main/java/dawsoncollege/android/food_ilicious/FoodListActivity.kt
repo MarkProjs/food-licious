@@ -13,6 +13,7 @@ class FoodListActivity : AppCompatActivity() {
 
     private lateinit var foodList: MutableList<String>
     private lateinit var adapter : RecyclerViewAdapter
+    private lateinit var newFoodName : String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,7 +30,7 @@ class FoodListActivity : AppCompatActivity() {
         binding.myRecyclerView.layoutManager = LinearLayoutManager(this)
 
         binding.addBtn.setOnClickListener {
-            val newFoodName = binding.newFoodEditTxt.text.toString()
+            newFoodName = binding.newFoodEditTxt.text.toString()
 
             if (newFoodName.isNotBlank()) {
                 foodList.add(newFoodName)
@@ -44,13 +45,17 @@ class FoodListActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
+        outState.putString("newFoodName", newFoodName)
         super.onSaveInstanceState(outState)
-        outState.putStringArray("foodList", foodList.toTypedArray())
+
     }
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)
-        foodList = (savedInstanceState.getStringArray("foodList")?.toMutableList()!!)
+        val newFoodName = savedInstanceState.getString("newFoodName")
+        if (newFoodName != null) {
+            foodList.add(newFoodName)
+        }
         adapter.notifyDataSetChanged()
     }
 }
