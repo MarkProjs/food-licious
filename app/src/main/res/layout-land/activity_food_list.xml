@@ -33,6 +33,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="80dp"
         android:layout_marginBottom="44dp"
+        android:fontFamily="@font/kite_one"
         android:text="@string/enter_food"
         app:layout_constraintBottom_toTopOf="@+id/add_btn"
         app:layout_constraintStart_toEndOf="@+id/my_recycler_view" />
@@ -42,6 +43,7 @@
         android:layout_width="148dp"
         android:layout_height="50dp"
         android:layout_marginStart="80dp"
+        android:fontFamily="@font/copse"
         android:text="@string/add"
         app:layout_constraintBottom_toTopOf="@id/save_btn"
         app:layout_constraintStart_toEndOf="@+id/my_recycler_view" />
@@ -51,6 +53,7 @@
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:layout_marginStart="80dp"
+        android:fontFamily="@font/copse"
         android:text="@string/save"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toEndOf="@+id/my_recycler_view" />
