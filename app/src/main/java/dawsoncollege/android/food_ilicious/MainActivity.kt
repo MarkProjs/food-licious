@@ -143,6 +143,7 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString("foodTxt", foodTxt.text as String?)
+        outState.putStringArray("foodList", foodList)
         super.onSaveInstanceState(outState)
 
 
@@ -151,6 +152,7 @@ class MainActivity : AppCompatActivity() {
         super.onRestoreInstanceState(savedInstanceState)
         savedInstanceState?.run {
             foodTxt.text = savedInstanceState.getString("foodTxt")
+            foodList = savedInstanceState.getStringArray("foodList") as Array<String>
         }
         getImage(foodTxt, foodImg, foodTxt.text as String)
     }
