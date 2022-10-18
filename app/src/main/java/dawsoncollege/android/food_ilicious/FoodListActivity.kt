@@ -3,7 +3,6 @@ package dawsoncollege.android.food_ilicious
 import android.app.Activity
 import android.os.Bundle
 import android.widget.Toast
-import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import dawsoncollege.android.food_ilicious.databinding.ActivityFoodListBinding
@@ -45,7 +44,6 @@ class FoodListActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-//        outState.putString("newFoodName", newFoodName)
         outState.putStringArray("foodList", foodList.toTypedArray())
         super.onSaveInstanceState(outState)
     }
@@ -56,11 +54,5 @@ class FoodListActivity : AppCompatActivity() {
         binding.myRecyclerView.adapter = adapter
         binding.myRecyclerView.layoutManager = LinearLayoutManager(this)
         super.onRestoreInstanceState(savedInstanceState)
-
-//        val newFoodName = savedInstanceState.getString("newFoodName")
-//        if (newFoodName != null) {
-//            foodList.add(newFoodName)
-//        }
-//        adapter.notifyDataSetChanged()
     }
 }

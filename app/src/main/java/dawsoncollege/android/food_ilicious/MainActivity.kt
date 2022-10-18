@@ -11,7 +11,6 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import dawsoncollege.android.food_ilicious.databinding.ActivityMainBinding
-import kotlin.properties.Delegates
 
 class MainActivity : AppCompatActivity() {
 
@@ -27,6 +26,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var foodImg: ImageView
     private lateinit var foodTxt: TextView
     private lateinit var foodList: Array<String>
+    private lateinit var foodName: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -68,7 +68,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun randFood(foodImg: ImageView, foodTxt: TextView, foodList: Array<String>) {
         //getting the random values
-        val foodName = foodList.random()
+        foodName = foodList.random()
 
         getImage(foodTxt, foodImg, foodName)
     }
@@ -76,6 +76,7 @@ class MainActivity : AppCompatActivity() {
     private fun getImage(foodTxt: TextView, foodImg: ImageView, foodName: String) {
         val imageResource = resources.getIdentifier("@drawable/${foodName.lowercase()}", "drawable", packageName)
         if (imageResource == 0) {
+            foodTxt.text = foodName
             foodImg.setImageResource(R.drawable.default_food)
         }
         else {
@@ -141,19 +142,18 @@ class MainActivity : AppCompatActivity() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putString("foodTxt", foodTxt.text as String?)
+        outState.putStringArray("foodList", foodList)
         super.onSaveInstanceState(outState)
 
 
     }
-
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        foodTxt.text=savedInstanceState.getString("foodTxt")
-        val imageResource = resources.getIdentifier("@drawable/${(foodTxt.text as String)?.lowercase()}", "drawable", packageName)
-        foodImg.setImageResource(imageResource)
         super.onRestoreInstanceState(savedInstanceState)
-
-
+        savedInstanceState?.run {
+            foodTxt.text = savedInstanceState.getString("foodTxt")
+            foodList = savedInstanceState.getStringArray("foodList") as Array<String>
+        }
+        getImage(foodTxt, foodImg, foodTxt.text as String)
     }
-
 }
 
