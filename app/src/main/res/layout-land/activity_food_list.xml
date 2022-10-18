@@ -21,6 +21,7 @@
         android:layout_marginStart="80dp"
         android:layout_marginTop="520dp"
         android:autofillHints=""
+        android:textColor="@color/grey"
         android:hint="@string/new_food_hint"
         android:inputType="text"
         android:minHeight="48dp"

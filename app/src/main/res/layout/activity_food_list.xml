@@ -26,7 +26,7 @@
         android:autofillHints=""
         android:hint="@string/new_food_hint"
         android:inputType="text"
-        android:textColor="@color/black"
+        android:textColor="@color/grey"
         android:minHeight="48dp"
         app:layout_constraintBottom_toTopOf="@id/add_btn"
         app:layout_constraintEnd_toEndOf="parent"

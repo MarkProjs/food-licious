@@ -42,6 +42,7 @@
         android:layout_width="373dp"
         android:layout_height="215dp"
         android:layout_marginBottom="4dp"
+        android:background="@color/white"
         android:contentDescription="@string/food_img_description"
         android:src="@drawable/default_food"
         app:layout_constraintBottom_toBottomOf="parent"
