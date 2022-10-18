@@ -77,6 +77,7 @@ class MainActivity : AppCompatActivity() {
     private fun getImage(foodTxt: TextView, foodImg: ImageView, foodName: String) {
         val imageResource = resources.getIdentifier("@drawable/${foodName.lowercase()}", "drawable", packageName)
         if (imageResource == 0) {
+            foodTxt.text = foodName
             foodImg.setImageResource(R.drawable.default_food)
         }
         else {
@@ -141,21 +142,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
-        outState.putStringArray("foodList", foodList)
         outState.putString("foodTxt", foodTxt.text as String?)
         super.onSaveInstanceState(outState)
 
 
     }
-
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
-        foodTxt.text = savedInstanceState.getString("foodTxt")
-        foodList = savedInstanceState.getStringArray("foodList") as Array<String>
-        (foodTxt.text as String?)?.let { getImage(foodTxt, foodImg, it) }
         super.onRestoreInstanceState(savedInstanceState)
-
-
+        savedInstanceState?.run {
+            foodTxt.text = savedInstanceState.getString("foodTxt")
+        }
+        getImage(foodTxt, foodImg, foodTxt.text as String)
     }
-
 }
 
